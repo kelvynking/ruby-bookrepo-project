@@ -1,5 +1,5 @@
 #import items in 'Gemfile'
-require 'bundle/setup'
+require 'bundler/setup'
 Bundler.require
 
 #create connection to database
@@ -7,3 +7,5 @@ ActiveRecord::Base.establish_connection(
     adapter: 'sqlite3',
     database: 'db/development.sqlite3'
 )
+
+require_relative '../app/models/user.rb'
