@@ -4,7 +4,7 @@ class CLI
             puts ''
             puts 'WELCOME TO MY BOOK REPOSITORY COMMAND LINE INTERFACE'
             puts ''
-        while continue == 'y' 
+        while continue == 'y'
             puts ''
             puts 'Main Menu'
             puts '---------'
@@ -38,10 +38,13 @@ class CLI
         end
     end
 
+    # Provide an interface to allow a user to Show all users, Add user, Login, Logout and Exit current menu.
     def userFunctions
         continue = 'y'
+            
         while continue == 'y'
 
+            puts ''
             puts 'User Menu'
             puts '---------'
             puts ''
@@ -50,7 +53,7 @@ class CLI
             puts '3. Login User'
             puts '4. Logout User'
             puts '5. Exit User Menu' 
-
+            
             input = gets.strip
 
             if input == '1'
@@ -65,6 +68,50 @@ class CLI
                 continue = 'n'
             else 
                 puts "The option wasn't recognised. Please try again."
+            end
+        end
+    end
+
+    #Method to show all users
+    def showUsers
+        puts 'Current Users'
+        puts '-------------'
+        puts ''
+    end
+
+    #Method to add user to the database
+    def addUser
+        continue = 'y'
+            puts 'Add User Menu'
+            puts '-------------'
+            puts ''
+            puts 'Adding user to database'
+            puts ''
+        while continue = 'y'
+            puts ''
+            print 'Type username: '
+            username = gets.strip
+            print 'Type password: '
+            password = gets.strip
+            print 'Type email: '
+            email = gets.strip
+
+            #Check to see if the user has entered something for both the username and password fields
+
+            if !username.empty? && !password.empty?
+
+                #Check to see if there is a user with the given username. If not, create one.
+                current_user = User.find_or_create_by(username: username)
+
+                if current_user
+                    puts 'There is already a user with this username'
+                    puts 'Please choose another username.'
+                else
+                    User.create(username: username, password: password, email: email)
+                    continue = 'n'
+                end
+            else
+                puts 'You need to add a username and password.'
             end
         end
     end
