@@ -101,17 +101,19 @@ class CLI
             if !username.empty? && !password.empty?
 
                 #Check to see if there is a user with the given username. If not, create one.
-                current_user = User.find_or_create_by(username: username)
-
-                if current_user
+                begin
+                    current_user = User.find_or_create_by(username: username) do |user|
+                        user.password = password
+                        user.email = email
+                    end
+                rescue current_user
                     puts 'There is already a user with this username'
                     puts 'Please choose another username.'
-                else
-                    User.create(username: username, password: password, email: email)
-                    continue = 'n'
                 end
+
+                continue = 'n'
             else
-                puts 'You need to add a username and password.'
+                puts 'You need to add a username and password.'    
             end
         end
     end
