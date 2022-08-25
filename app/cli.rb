@@ -37,4 +37,35 @@ class CLI
             end
         end
     end
+
+    def userFunctions
+        continue = 'y'
+        while continue == 'y'
+
+            puts 'User Menu'
+            puts '---------'
+            puts ''
+            puts '1. Show Users'
+            puts '2. Add User'
+            puts '3. Login User'
+            puts '4. Logout User'
+            puts '5. Exit User Menu' 
+
+            input = gets.strip
+
+            if input == '1'
+                showUsers
+            elsif input == '2'
+                addUser
+            elsif input == '3'
+                loginUser
+            elsif input == '4'
+                logoutUser
+            elsif input == '5'
+                continue = 'n'
+            else 
+                puts "The option wasn't recognised. Please try again."
+            end
+        end
+    end
 end
