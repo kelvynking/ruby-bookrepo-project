@@ -145,6 +145,22 @@ class CLI
         else
             puts "Please enter a valid username and password."
         end
+    end
 
+    def logoutUser
+        username = @loggedinuser.username
+        user = User.where(username: username).first
+        if user
+            user.loggedin = false
+            user.save()
+            @loggedinuser.loggedin = false
+            puts "You are now logged out."
+            puts "Press enter to continue..."
+
+            gets
+        else
+            puts "User isn't logged in."
+        end
+        
     end
 end
