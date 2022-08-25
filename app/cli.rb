@@ -1,10 +1,13 @@
 class CLI
     def initialize
+        @loggedinuser = LoggedInUser.new
+
         continue = 'y'
+        while continue == 'y'
             puts ''
             puts 'WELCOME TO MY BOOK REPOSITORY COMMAND LINE INTERFACE'
             puts ''
-        while continue == 'y'
+            puts "You are currently logged in as #{@loggedinuser.username}" if @loggedinuser.loggedin == true
             puts ''
             puts 'Main Menu'
             puts '---------'
@@ -117,5 +120,31 @@ class CLI
                 puts 'You need to add a username and password.'    
             end
         end
+    end
+
+    def loginUser
+        puts 'Login User Menu'
+        puts '---------------'
+        puts ''
+        print 'Type in your username: '
+        username = gets.strip
+        print 'Type in your password: '
+        password = gets.strip
+
+        if !username.empty? && !password.empty?
+            user = User.where(username: username, password: password).first
+            if user
+                user.loggedin == true
+                user.save()
+                @loggedinuser.username = username
+                @loggedinuser.loggedin = true
+                puts "Hi, you are now logged in as #{user.username}"
+            else
+                puts "Sorry your username and/or password information is incorrect"
+            end
+        else
+            puts "Please enter a valid username and password."
+        end
+
     end
 end
