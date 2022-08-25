@@ -77,6 +77,10 @@ class CLI
         puts 'Current Users'
         puts '-------------'
         puts ''
+        current_users = User.all()
+        current_users.each do |user|
+            puts "#{user.username} - #{user.email}"
+        end
     end
 
     #Method to add user to the database
