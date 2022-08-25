@@ -87,7 +87,7 @@ class CLI
             puts ''
             puts 'Adding user to database'
             puts ''
-        while continue = 'y'
+        while continue == 'y'
             puts ''
             print 'Type username: '
             username = gets.strip
@@ -101,17 +101,14 @@ class CLI
             if !username.empty? && !password.empty?
 
                 #Check to see if there is a user with the given username. If not, create one.
-                begin
-                    current_user = User.find_or_create_by(username: username) do |user|
-                        user.password = password
-                        user.email = email
-                    end
-                rescue current_user
+                current_user = User.where(username: username).first
+                if current_user
                     puts 'There is already a user with this username'
                     puts 'Please choose another username.'
+                else 
+                    current_user = User.create(username: username, password: password, email: email)
+                    continue = 'n'
                 end
-
-                continue = 'n'
             else
                 puts 'You need to add a username and password.'    
             end
