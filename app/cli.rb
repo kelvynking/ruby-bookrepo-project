@@ -164,7 +164,7 @@ class CLI
     end
 
     def genreSearch
-        unless Genre.all.count.positive?
+       if Genre.all.count == 0
             scraper = Scraper::GenreScraper.new
             scraper.add_genres_to_database
         end
@@ -177,7 +177,7 @@ class CLI
         return if input.empty?
 
         genre_name = Genre.find(input.to_i)
-        # get_books_by_genre(genre_name.name)
-        puts Scraper::GenreBookScraper.new(genre_name.name).show_books
+        scraper = Scraper::GenreBookScraper.new(genre_name.name)
+        scraper.show_books
     end
 end

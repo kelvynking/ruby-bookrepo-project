@@ -37,10 +37,14 @@ module Scraper
         def show_books
             puts ''
             puts "Downloading the most read books from the #{@name} genre. Please wait ..."
-            genre = Genre.where(name: @name).first
 
             find_books.each do |bbox|
-                puts 'These are the books'
+               url = bbox.css('a').first['href']
+               title = bbox.css('img').first['alt']
+                Book.find_or_create_by(title: title) do |book|
+                    book.url = url
+                    book.genre = @name
+                end
             end
 
         end

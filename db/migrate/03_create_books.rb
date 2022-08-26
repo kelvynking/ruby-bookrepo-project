@@ -9,6 +9,7 @@ class CreateBooks < ActiveRecord::Migration[5.2]
             t.decimal :price
             t.boolean :favorite, default: false
             t.string :url
+            t.string :genre
             t.timestamps
         end
     end
