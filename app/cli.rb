@@ -134,7 +134,7 @@ class CLI
         if !username.empty? && !password.empty?
             user = User.where(username: username, password: password).first
             if user
-                user.loggedin == true
+                user.loggedin = true
                 user.save()
                 @loggedinuser.username = username
                 @loggedinuser.loggedin = true
@@ -179,5 +179,17 @@ class CLI
         genre_name = Genre.find(input.to_i)
         scraper = Scraper::GenreBookScraper.new(genre_name.name)
         scraper.show_books
+        puts 'Currently saved books'
+        puts '---------------------'
+        puts ''
+        Book.where(genre: genre_name.name).each do |book|
+            puts "#{book.id} : #{book.title}"
+        end
+        puts ''
+        print 'Please make a selection: '
+        puts ''
+        input = gets.strip
+
+        get_book_info(input.to_i)
     end
 end
