@@ -164,8 +164,10 @@ class CLI
     end
 
     def genreSearch
-        scraper = Scraper::GenreScraper.new
-        scraper.add_genres_to_database
+        unless Genre.all.count.positive?
+            scraper = Scraper::GenreScraper.new
+            scraper.add_genres_to_database
+        end
         Genre.all.each do |genre|
             puts "#{genre.id}: #{genre.name}"
         end
