@@ -160,7 +160,14 @@ class CLI
             gets
         else
             puts "User isn't logged in."
+        end  
+    end
+
+    def genreSearch
+        scraper = Scraper::GenreScraper.new
+        scraper.add_genres_to_database
+        Genre.all.each do |genre|
+            puts "#{genre.id}: #{genre.name}"
         end
-        
     end
 end

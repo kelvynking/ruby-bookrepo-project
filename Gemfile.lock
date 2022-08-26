@@ -14,15 +14,23 @@ GEM
       zeitwerk (~> 2.3)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
+    date (3.2.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
     minitest (5.16.3)
     mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
+    nokogiri (1.13.8-x86_64-darwin)
+      racc (~> 1.4)
+    open-uri (0.2.0)
+      stringio
+      time
+      uri
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    racc (1.6.0)
     rack (2.2.4)
     rack-protection (2.2.2)
       rack
@@ -37,9 +45,13 @@ GEM
       activerecord (>= 4.1)
       sinatra (>= 1.0)
     sqlite3 (1.4.4)
+    stringio (3.0.2)
     tilt (2.0.11)
+    time (0.2.0)
+      date
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    uri (0.11.0)
     zeitwerk (2.6.0)
 
 PLATFORMS
@@ -47,6 +59,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  nokogiri
+  open-uri
   pry
   rake
   sinatra-activerecord

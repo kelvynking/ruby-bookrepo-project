@@ -1,6 +1,7 @@
 module Scraper
     #Scrape the genres from GoodReads
     class GenreScraper
+
         def load_homepage
             Nokogiri::HTML(URI.open('https://www.goodreads.com/'))
         end
