@@ -177,6 +177,7 @@ class CLI
         return if input.empty?
 
         genre_name = Genre.find(input.to_i)
-        get_books_by_genre(genre_name.name)
+        # get_books_by_genre(genre_name.name)
+        puts Scraper::GenreBookScraper.new(genre_name.name).show_books
     end
 end

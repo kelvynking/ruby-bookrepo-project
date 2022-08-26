@@ -20,4 +20,29 @@ module Scraper
             end
         end
     end
+
+    class GenreBookScraper
+        def initialize(name)
+            @name = name
+        end
+
+        def load_page
+            Nokogiri::HTML(URI.open("https://www.goodreads.com/genres/most_read/#{@name}"))
+        end
+
+        def find_books
+            load_page.css('.bookBox')
+        end
+
+        def show_books
+            puts ''
+            puts "Downloading the most read books from the #{@name} genre. Please wait ..."
+            genre = Genre.where(name: @name).first
+
+            find_books.each do |bbox|
+                puts 'These are the books'
+            end
+
+        end
+    end
 end
