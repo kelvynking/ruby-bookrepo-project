@@ -171,5 +171,12 @@ class CLI
         Genre.all.each do |genre|
             puts "#{genre.id}: #{genre.name}"
         end
+        puts ''
+        print 'Choose a number: '
+        input = gets.strip
+        return if input.empty?
+
+        genre_name = Genre.find(input.to_i)
+        get_books_by_genre(genre_name.name)
     end
 end
