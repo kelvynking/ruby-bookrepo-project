@@ -192,4 +192,11 @@ class CLI
 
         get_book_info(input.to_i)
     end
+
+    def get_book_info(book_id)
+        book = Book.find(book_id)
+        google_API = GoogleBooksAPI.new(book.title)
+        response =  JSON.parse(google_API.query)
+       
+    end
 end
