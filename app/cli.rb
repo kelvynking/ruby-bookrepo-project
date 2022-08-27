@@ -225,4 +225,14 @@ class CLI
             continue = 'n'
         end
     end
+
+    def showFavourites
+        puts ""
+        puts "These are your favourite books:"
+        puts "-------------------------------"
+        
+        Book.where(favorite: true).each do |book|
+            puts book.title
+        end
+    end
 end
