@@ -5,7 +5,8 @@ Bundler.require
 #create connection to database
 ActiveRecord::Base.establish_connection(
     adapter: 'sqlite3',
-    database: 'db/development.sqlite3'
+    database: 'db/development.sqlite3',
+    logger: 'nil'
 )
 
 require_relative '../app/models/user.rb'
@@ -15,3 +16,4 @@ require_relative '../app/booksapi.rb'
 require_relative '../app/cli.rb'
 require_relative '../app/loggedinuser.rb'
 require_relative '../app/scraper.rb'
+

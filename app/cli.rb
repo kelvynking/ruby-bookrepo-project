@@ -29,24 +29,21 @@ class CLI
             puts 'Select a function:'
             puts ''
             puts "1. User"
-            puts "2. Keyword Search"
-            puts "3. Genre Search"
-            puts "4. Show Favorites"
-            puts "5. Exit"
+            puts "2. Genre Search"
+            puts "3. Show Favorites"
+            puts "4. Exit"
             puts ''
-            print 'Choose options 1 through 5: '
+            print 'Choose options 1 through 4: '
 
             input = gets.strip
 
             if input == '1'
                 userFunctions
             elsif input == '2'
-                keywordSearch
-            elsif input == '3'
                 genreSearch
-            elsif input == '4'
+            elsif input == '3'
                 showFavourites
-            elsif input == '5'
+            elsif input == '4'
                 puts 'You have now exited the app. Thank you and have a great day!'
                 continue = 'n'
             else
@@ -58,7 +55,7 @@ class CLI
     # Provide an interface to allow a user to Show all users, Add user, Login, Logout and Exit current menu.
     def userFunctions
         continue = 'y'
-            
+        graphics    
         while continue == 'y'
 
             puts ''
@@ -70,6 +67,7 @@ class CLI
             puts '3. Login User'
             puts '4. Logout User'
             puts '5. Exit User Menu' 
+            print "Please choose an option between 1-5: "
             
             input = gets.strip
 
@@ -91,6 +89,7 @@ class CLI
 
     #Method to show all users
     def showUsers
+        graphics  
         puts 'Current Users'
         puts '-------------'
         puts ''
@@ -103,6 +102,7 @@ class CLI
     #Method to add user to the database
     def addUser
         continue = 'y'
+            graphics  
             puts 'Add User Menu'
             puts '-------------'
             puts ''
@@ -137,6 +137,7 @@ class CLI
     end
 
     def loginUser
+        graphics  
         puts 'Login User Menu'
         puts '---------------'
         puts ''
@@ -162,6 +163,7 @@ class CLI
     end
 
     def logoutUser
+        graphics 
         username = @loggedinuser.username
         user = User.where(username: username).first
         if user
@@ -178,6 +180,7 @@ class CLI
     end
 
     def genreSearch
+        graphics  
        if Genre.all.count == 0
             scraper = Scraper::GenreScraper.new
             scraper.add_genres_to_database
@@ -189,6 +192,7 @@ class CLI
         print 'Choose a number: '
         input = gets.strip
         return if input.empty?
+
 
         genre_name = Genre.find(input.to_i)
         scraper = Scraper::GenreBookScraper.new(genre_name.name)
@@ -210,6 +214,7 @@ class CLI
     def get_book_info(book_id)
         continue = "y"
         while continue == "y"
+            graphics
             book = Book.find(book_id)
             google_API = GoogleBooksAPI.new(book.title)
             response =  JSON.parse(google_API.query)
@@ -225,28 +230,53 @@ class CLI
             book.save()
 
             puts "Book Information"
+            puts "----------------"
             puts "Author: #{author}"
+            puts ""
             puts "Description: #{description}"
+            puts ""
             puts "Number of Pages: #{pages}"
             puts " "
             print "Would you like to save this book as a favourite? Enter [y]es or [n]o: "
             input = gets.strip
 
-            if input == 'y'
-                book.favorite = true
-                book.save()
+            if @loggedinuser.loggedin == true 
+                if input == 'y'
+                    book.favorite = true
+                    book.save()
+                end
+                continue = 'n'
+            else
+                puts "You are not logged in. Please log in."
+                continue = 'n'
             end
-            continue = 'n'
         end
     end
 
     def showFavourites
-        puts ""
-        puts "These are your favourite books:"
-        puts "-------------------------------"
+        continue = 'y'
         
-        Book.where(favorite: true).each do |book|
-            puts book.title
+        while continue == 'y'
+            graphics
+            if @loggedinuser.loggedin == true
+                puts ""
+                puts "These are your favourite books:"
+                puts "-------------------------------"
+                
+                Book.where(favorite: true).each do |book|
+                    puts book.title
+                end
+                puts "Press any key to continue..."
+
+                gets
+                continue = 'n'
+            else
+                puts "You are currently not logged in. Please log in to see your favourite books."
+                
+                puts "Press any key to continue..."
+                gets
+                continue = 'n'
+            end
         end
     end
 end
