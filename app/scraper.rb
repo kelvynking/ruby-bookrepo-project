@@ -27,7 +27,7 @@ module Scraper
         end
 
         def load_page
-            Nokogiri::HTML(URI.open("https://www.goodreads.com/genres/most_read/#{@name}"))
+            Nokogiri::HTML(URI.open("https://www.goodreads.com/genres/most_read/#{@name.gsub(' ', '-')}"))
         end
 
         def find_books
