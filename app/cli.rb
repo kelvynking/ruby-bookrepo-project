@@ -194,9 +194,35 @@ class CLI
     end
 
     def get_book_info(book_id)
-        book = Book.find(book_id)
-        google_API = GoogleBooksAPI.new(book.title)
-        response =  JSON.parse(google_API.query)
-       
+        continue = "y"
+        while continue == "y"
+            book = Book.find(book_id)
+            google_API = GoogleBooksAPI.new(book.title)
+            response =  JSON.parse(google_API.query)
+        
+            item = response["items"][0]
+            author = item["volumeInfo"]["authors"][0]
+            description = item["volumeInfo"]["description"]
+            pages = item["volumeInfo"]["pageCount"]
+
+            book.author = author
+            book.description = description
+            book.num_pages = pages
+            book.save()
+
+            puts "Book Information"
+            puts "Author: #{author}"
+            puts "Description: #{description}"
+            puts "Number of Pages: #{pages}"
+            puts " "
+            print "Would you like to save this book as a favourite? Enter [y]es or [n]o: "
+            input = gets.strip
+
+            if input == 'y'
+                book.favorite = true
+                book.save()
+            end
+            continue = 'n'
+        end
     end
 end

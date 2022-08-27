@@ -11,6 +11,7 @@ ActiveRecord::Base.establish_connection(
 require_relative '../app/models/user.rb'
 require_relative '../app/models/genre.rb'
 require_relative '../app/models/book.rb'
+require_relative '../app/booksapi.rb'
 require_relative '../app/cli.rb'
 require_relative '../app/loggedinuser.rb'
 require_relative '../app/scraper.rb'
