@@ -1,9 +1,23 @@
 class CLI
+
+    def graphics
+        system("clear")
+        puts ''
+        puts '██████╗  ██████╗  ██████╗ ██╗  ██╗██████╗ ███████╗██████╗  ██████╗'
+        puts '██╔══██╗██╔═══██╗██╔═══██╗██║ ██╔╝██╔══██╗██╔════╝██╔══██╗██╔═══██╗'
+        puts '██████╔╝██║   ██║██║   ██║█████╔╝ ██║  ██║█████╗  ██████╔╝██║   ██║'
+        puts '██╔══██╗██║   ██║██║   ██║██╔═██╗ ██║  ██║██╔══╝  ██╔═══╝ ██║   ██║'
+        puts '██████╔╝╚██████╔╝╚██████╔╝██║  ██╗██████╔╝███████╗██║     ╚██████╔╝'
+        puts '╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝      ╚═════╝ '
+        puts ''                                                               
+    end
+
     def initialize
         @loggedinuser = LoggedInUser.new
 
         continue = 'y'
         while continue == 'y'
+            graphics
             puts ''
             puts 'WELCOME TO MY BOOK REPOSITORY COMMAND LINE INTERFACE'
             puts ''
